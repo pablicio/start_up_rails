@@ -55,8 +55,13 @@ sudo -u postgres createdb -O vagrant -E UTF8 -T template0 activerecord_unittest2
 echo 'INSTALAÇÃO RVM'
 
 gpg --keyserver hkp://keys.gnupg.net --recv-keys 409B6B1796C275462A1703113804BB82D39DC0E3
-curl -sSL https://get.rvm.io | bash -s $1
-sudo chown -R vagrant:rvm /usr/share/rvm/*
+sudo apt-get install software-properties-common
+sudo apt-add-repository -y ppa:rael-gc/rvm
+sudo apt-get update
+sudo apt-get install rvm
+sudo usermod -a -G rvm vagrant
+rvm user gemsets
+rvm install ruby
 
-
+echo 'INSTALA O RUBY COM O RVM QUE É SUCESSO'
 echo 'A festa começa aqui, vamo balançar!!!'
