@@ -29,16 +29,19 @@ install 'development tools' build-essential autoconf libtool
 
 # echo installing current RubyGems
 echo 'INSTALAÇÃO CURRENT GEMS'
+
 gem update --system -N >/dev/null 2>&1
+
 echo installing Bundler
 gem install bundler -N >/dev/null 2>&1
+
 install SQLite sqlite3 libsqlite3-dev
+
 install RabbitMQ rabbitmq-server
 
 #instalar POSTGRESQL
 echo 'INSTALAÇÃO POSTGRESQL'
 
-install PostgreSQL postgresql postgresql-contrib libpq-dev
 sudo -u postgres createuser --superuser vagrant
 sudo -u postgres psql -c "ALTER USER vagrant PASSWORD 'vagrant';"
 sudo -u postgres psql -c "ALTER USER postgres PASSWORD 'postgres'; "
