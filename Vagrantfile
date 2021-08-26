@@ -1,5 +1,6 @@
 # -*- mode: ruby -*-
 # vi: set ft=ruby :
+# DESATIVA O HYPER-V!!!!!!!!!!!!!!!!!!!!!
 Vagrant.configure('2') do |config|
   config.vm.box      = 'ubuntu/hirsute64' # 20.10
   config.vm.hostname = 'rails-dev-box'
