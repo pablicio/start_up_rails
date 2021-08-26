@@ -29,14 +29,10 @@ install 'development tools' build-essential autoconf libtool
 
 # echo installing current RubyGems
 echo 'INSTALAÇÃO CURRENT GEMS'
-
 gem update --system -N >/dev/null 2>&1
-
 echo installing Bundler
 gem install bundler -N >/dev/null 2>&1
-
 install SQLite sqlite3 libsqlite3-dev
-
 install RabbitMQ rabbitmq-server
 
 #instalar POSTGRESQL
@@ -46,22 +42,18 @@ install PostgreSQL postgresql postgresql-contrib libpq-dev
 sudo -u postgres createuser --superuser vagrant
 sudo -u postgres psql -c "ALTER USER vagrant PASSWORD 'vagrant';"
 sudo -u postgres psql -c "ALTER USER postgres PASSWORD 'postgres'; "
-
 sudo -u postgres createdb -O vagrant -E UTF8 -T template0 activerecord_unittest
 sudo -u postgres createdb -O vagrant -E UTF8 -T template0 activerecord_unittest2
-
 
 #instalar RVM
 echo 'INSTALAÇÃO RVM'
 
-gpg --keyserver hkp://keys.gnupg.net --recv-keys 409B6B1796C275462A1703113804BB82D39DC0E3
 sudo apt-get install software-properties-common
-sudo apt-add-repository -y ppa:rael-gc/rvm
-sudo apt-get update
-sudo apt-get install rvm
+command curl -sSL https://rvm.io/mpapis.asc | sudo gpg --import -  
+command curl -sSL https://rvm.io/pkuczynski.asc | sudo gpg --import
+curl -ksSL https://get.rvm.io | bash -s stable
+source /etc/profile.d/rvm.sh
 sudo usermod -a -G rvm vagrant
-rvm user gemsets
-rvm install ruby
 
 echo 'INSTALA O RUBY COM O RVM QUE É SUCESSO'
 echo 'A festa começa aqui, vamo balançar!!!'
