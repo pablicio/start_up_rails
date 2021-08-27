@@ -1,4 +1,5 @@
 #!/usr/bin/env bash
+
 # The output of all these installation steps is noisy. With this utility
 # the progress report is nice and concise.
 function install {
@@ -22,41 +23,42 @@ echo "deb https://dl.yarnpkg.com/debian/ stable main" | sudo tee /etc/apt/source
 echo updating package information
 apt-get -y update >/dev/null 2>&1
 
-# echo installing Ruby
-echo 'INSTALAÇÃO RUBY'
-install Ruby ruby-full
-install 'development tools' build-essential autoconf libtool
+# install Ruby ruby-full bundler
+# install 'development tools' build-essential autoconf libtool
 
 # echo installing current RubyGems
-echo 'INSTALAÇÃO CURRENT GEMS'
-
 gem update --system -N >/dev/null 2>&1
 
-echo installing Bundler
-gem install bundler -N >/dev/null 2>&1
-
+install Git git
 install SQLite sqlite3 libsqlite3-dev
-
+install memcached memcached
+install Redis redis-server
 install RabbitMQ rabbitmq-server
 
-#instalar POSTGRESQL
-echo 'INSTALAÇÃO POSTGRESQL'
-
+install PostgreSQL postgresql postgresql-contrib libpq-dev
 sudo -u postgres createuser --superuser vagrant
 sudo -u postgres psql -c "ALTER USER vagrant PASSWORD 'vagrant';"
 sudo -u postgres psql -c "ALTER USER postgres PASSWORD 'postgres'; "
 sudo -u postgres createdb -O vagrant -E UTF8 -T template0 activerecord_unittest
+sudo -u postgres createdb -O vagrant -E UTF8 -T template0 activerecord_unittest2sudo -u postgres createdb -O vagrant -E UTF8 -T template0 activerecord_unittest
 sudo -u postgres createdb -O vagrant -E UTF8 -T template0 activerecord_unittest2
 
-#instalar RVM
-echo 'INSTALAÇÃO RVM'
-
-sudo apt-get install software-properties-common
-command curl -sSL https://rvm.io/mpapis.asc | sudo gpg --import -  
-command curl -sSL https://rvm.io/pkuczynski.asc | sudo gpg --import
-curl -ksSL https://get.rvm.io | bash -s stable
+# curl -sSL https://get.rvm.io | bash -s $1
+sudo apt-get install -y build-essential
+#
+# Installs RVM
+#
+sudo gpg --keyserver hkp://keys.gnupg.net --recv-keys 409B6B1796C275462A1703113804BB82D39DC0E3
+command curl -sSL https://rvm.io/mpapis.asc | sudo gpg --import -
+command curl -sSL https://rvm.io/pkuczynski.asc | sudo gpg --import -
+sudo curl -sSL https://get.rvm.io | bash -s stable
+sudo su
 source /etc/profile.d/rvm.sh
-sudo usermod -a -G rvm vagrant
+#
+# Install Ruby 2.6.0 in RVM
+#
+rvm install 2.6.0
+rvm use 2.6.0
 
 echo 'INSTALA O RUBY COM O RVM QUE É SUCESSO'
 echo 'A festa começa aqui, vamo balançar!!!'
