@@ -2,7 +2,7 @@
 # vi: set ft=ruby :
 # DESATIVA O HYPER-V!!!!!!!!!!!!!!!!!!!!!
 Vagrant.configure('2') do |config|
-  config.vm.box      = 'ubuntu/hirsute64' # 20.10
+  config.vm.box      = 'ubuntu/focal64' # 20.04
   config.vm.hostname = 'rails-dev-box'
   config.vm.network :forwarded_port, guest: 5432, host: 5432 # postgresql
   config.vm.network :forwarded_port, guest: 6379, host: 6379 # redis
