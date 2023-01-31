@@ -14,7 +14,7 @@ Vagrant.configure('2') do |config|
   config.vm.network :forwarded_port, guest: 1080, host: 1080 # mailcatcher
   config.vm.network "private_network", ip: "192.168.33.10"
   config.ssh.forward_agent = true
-  config.vm.provision :shell, path: 'bootstrap.sh', keep_color: true
+  config.vm.provision :shell, privileged: false, path: 'bootstrap.sh', keep_color: true
   config.ssh.extra_args = ["-t", "cd /vagrant; bash --login;"]
   config.vm.provider "virtualbox" do |v|
     v.memory = 2048
