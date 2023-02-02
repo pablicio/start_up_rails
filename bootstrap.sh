@@ -24,6 +24,8 @@ sudo apt update
 sudo apt install gnupg2
 gpg2 --keyserver hkp://keyserver.ubuntu.com --recv-keys 409B6B1796C275462A1703113804BB82D39DC0E3 7D2BAF1CF37B13E2069D6956105BD0E739499BDB
 curl -sSL https://get.rvm.io -o rvm.sh
+nano rvm.sh
+cat rvm.sh | bash -s stable --rails
 source ~/.rvm/scripts/rvm
 
 #
@@ -31,3 +33,11 @@ source ~/.rvm/scripts/rvm
 #
 rvm install 2.6.4
 rvm use 2.6.4
+
+#
+# Enable RabbitMQ Menagement
+#
+sudo rabbitmq-plugins enable rabbitmq_management
+sudo rabbitmqctl add_user admin admin
+sudo rabbitmqctl set_user_tags admin administrator
+sudo rabbitmqctl set_permissions -p / admin ".*" ".*" ".*"
